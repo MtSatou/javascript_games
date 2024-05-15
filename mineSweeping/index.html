@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/index.css" />
+    <link rel="stylesheet" href="./icon/iconfont.css" />
+    <title>扫雷</title>
+  </head>
+
+  <body>
+    <script type="module">
+      import Game from "./js/game.js";
+      new Game("body", {
+        size: {
+          x: 40,
+          y: 22,
+        },
+        // 显示雷
+        // revealMine: true,
+        // 显示数字
+        // revealNumber: true,
+        sweepingNumber: 150,
+        createdHandler(v) {
+          console.log(v, "created");
+        },
+        clickHandler(v) {
+          console.log(v, "click");
+        },
+        dblclickHandler(v) {
+          console.log(v, "dblclickHandler");
+        },
+        contextmenuHandler(v) {
+          console.log(v, "contextmenuHandler");
+        },
+        overHandler(evt) {
+          const { time, gameStatus } = evt;
+          const formatTime = (time.over - time.create) / 1000;
+          if (gameStatus === 3) {
+            const name = prompt(
+              `通关成功，耗时${formatTime} 秒，留下你的名称？`
+            );
+          } else {
+            alert(`你知道的...失败了，耗时${formatTime} 秒`);
+          }
+        },
+      });
+    </script>
+  </body>
+</html>

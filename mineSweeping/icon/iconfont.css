@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "iconfont";
+  /* Project id  */
+  src: url('iconfont.ttf?t=1715777355935') format('truetype');
+}
+
+[data-icon-flag],
+[data-icon-mine] {
+  font-family: "iconfont" !important;
+  font-size: 20px;
+  font-style: normal;
+}
+
+[data-icon-mine]:before {
+  content: "\e58f";
+}
+
+[data-icon-flag]:before {
+  content: "\e6ea" !important;
+}
