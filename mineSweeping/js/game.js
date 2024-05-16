@@ -19,6 +19,7 @@ import { error_constant, game_state, time_change } from "./constant.js";
  * @param {Function} options.revealNumber 是否显示数字
  */
 class mineSweeping {
+  #timerId;
   #event = {
     createdHandler: undefined,
     timeChangeHandler: undefined,
@@ -106,6 +107,7 @@ class mineSweeping {
     this.#initClick();
     this.#initDblclick();
     this.#initContextmenu();
+    this.#initTimer();
     this.#initConfig.time.create = Date.now();
     this.#initConfig.gameStatus = game_state.running;
   }
@@ -289,10 +291,10 @@ class mineSweeping {
     this.#makeWhite(this.#getItem(x - 1, y));
     this.#makeWhite(this.#getItem(x, y + 1));
     this.#makeWhite(this.#getItem(x, y - 1));
-    // this.#makeWhite(this.#getItem(x - 1, y + 1));
-    // this.#makeWhite(this.#getItem(x - 1, y - 1));
-    // this.#makeWhite(this.#getItem(x + 1, y + 1));
-    // this.#makeWhite(this.#getItem(x + 1, y - 1));
+    this.#makeWhite(this.#getItem(x - 1, y + 1));
+    this.#makeWhite(this.#getItem(x - 1, y - 1));
+    this.#makeWhite(this.#getItem(x + 1, y + 1));
+    this.#makeWhite(this.#getItem(x + 1, y - 1));
   }
 
   #initClick() {
@@ -471,8 +473,16 @@ class mineSweeping {
     this.#initConfig.gameEl.addEventListener("contextmenu", mineContextmenuHandler);
   }
 
+  #initTimer() {
+    let count = 0;
+    this.#timerId = setInterval(() => {
+      this.#event.timeChangeHandler && this.#event.timeChangeHandler(++count);
+    }, 1000);
+  }
+
   // 结束，清除事件。可从实例直接调用结束（实例直接调用一定是失败结束）
   overGame() {
+    clearInterval(this.#timerId);
     this.#initConfig.time.over = Date.now();
     this.#initConfig.gameEl.removeEventListener("click", this.#handler.click);
     this.#initConfig.gameEl.removeEventListener("dblclick", this.#handler.dblclick);
