@@ -316,6 +316,16 @@ class mineSweeping {
             ...currentItemMineData,
           },
         });
+        
+        // 检查是否只剩下雷, 由于有清除动画，因此加入微任务判断
+        Promise.resolve().then(() => {
+          const flatData = this.#initConfig.gameData.flat(2).filter(i => !i.look);
+          const fremain = flatData.every(item => !item.look && item.mine);
+          if (fremain) {
+            this.overGame();
+            this.#initConfig.gameStatus = game_state.finish;
+          }
+        })
 
         // 触发雷, 失败结束
         if (currentItemMineData.mine) {
