@@ -231,6 +231,8 @@ export default class sudoku {
         item.el.oninput = (evt) => {
           const value = this.#sudokuData[row][col];
           const inputValue = +evt.target.textContent.trim();
+          this.#event.inputHandler && this.#event.inputHandler(evt.target.textContent);
+
           if (!item.isCorrect && inputValue === value) {
             item.isCorrect = true;
             this.#correctNumber++;
@@ -251,7 +253,6 @@ export default class sudoku {
             },
           });
           if (this.#correctNumber === difficulty) {
-            this.#over();
             this.#change.push({
               type: "over",
               event: {
@@ -263,8 +264,8 @@ export default class sudoku {
                 coordinates: { x: row, y: col },
               },
             });
+           this.#over();
           }
-          this.#event.inputHandler && this.#event.inputHandler(evt.target.textContent);
         };
         count++;
       }
