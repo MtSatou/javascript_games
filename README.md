@@ -1,7 +1,7 @@
 # javascript_games
 
 ## 扫雷
---> mineSweeping
+| mineSweeping
 
 ## 数独
---> sudoku
+| sudoku
