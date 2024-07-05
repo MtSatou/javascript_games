@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku</title>
+  <style>
+    #box {
+      width: 500px;
+      height: 500px;
+      background-color: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box"></div>
+  <script type="module">
+    import sudoku from "./js/sudoku.js";
+    new sudoku(box, {
+      // 行数，必须是整数n的平方，例如 1（1^2） 4（2^2） 9（3^2） 16（4^2）
+      inputRows: 9,
+      // 字体色
+      fontColor: "#333",
+      // 边框色
+      borderColor: "#6699aa",
+      // 背景色
+      backgroundColor: "",
+      // 空缺比
+      vacancyPercentage: 0.15,
+      createdHandler: () => {
+        console.log("开始");
+      },
+      timeChangeHandler: (time) => {
+        console.log("时间进行", time);
+      },
+      inputHandler: (evt) => {
+        console.log("输入了", evt);
+      },
+      overHandler: (t) => {
+        console.log("结束了", t.time.over - t.time.create);
+      },
+    })
+  </script>
+</body>
+
+</html>
